@@ -1,6 +1,4 @@
-import { useAppDispatch } from "../app/hooks";
-import { removeReservation } from "../features/reservationSlice";
-import { addCustomer } from "../features/customerSlice";
+import { useActions } from "../app/hooks";
 import { v4 as uuid } from "uuid";
 
 interface ReservationCardProps {
@@ -9,17 +7,15 @@ interface ReservationCardProps {
 }
 
 export default function ReservationCard({ name, index }: ReservationCardProps) {
-  const dispatch = useAppDispatch();
+  const { removeReservation, addCustomer } = useActions();
 
   const handleClick = () => {
-    dispatch(removeReservation(index));
-    dispatch(
-      addCustomer({
-        id: uuid(),
-        name,
-        food: []
-      })
-    );
+    removeReservation(index);
+    addCustomer({
+      id: uuid(),
+      name,
+      food: []
+    });
   };
 
   return (

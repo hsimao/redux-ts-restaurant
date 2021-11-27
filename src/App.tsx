@@ -1,24 +1,20 @@
 import React, { useState } from "react";
-import { useAppSelector, useAppDispatch } from "./app/hooks";
+import { useAppSelector } from "./app/hooks";
 import ReservationCard from "./components/ReservationCard";
 import CustomerCard from "./components/CustomerCard";
-import { addReservation } from "./features/reservationSlice";
+import { useActions } from "./app/hooks";
 import "./App.css";
 
 function App() {
   const [reservationName, setReservationName] = useState("");
   const reservations = useAppSelector((state) => state.reservations.value);
   const customers = useAppSelector((state) => state.customers.value);
-  const dispatch = useAppDispatch();
 
-  // const hanelInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-  //   setReservationName(event.target.value);
-  // };
+  const { addReservation } = useActions();
 
   const handleAddReservation = () => {
     if (!reservationName) return;
-
-    dispatch(addReservation(reservationName));
+    addReservation(reservationName);
     setReservationName("");
   };
 

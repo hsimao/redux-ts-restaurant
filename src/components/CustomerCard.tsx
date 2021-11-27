@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { useAppDispatch } from "../app/hooks";
-import { addFoodToCustomer } from "../features/customerSlice";
+import { useActions } from "../app/hooks";
 
 interface CustomerCardProps {
   id: string;
@@ -9,13 +8,13 @@ interface CustomerCardProps {
 }
 
 export default function CustomerCard({ id, name, food }: CustomerCardProps) {
-  const dispatch = useAppDispatch();
+  const { addFoodToCustomer } = useActions();
   const [foodName, setFoodName] = useState("");
 
   const handleAddFood = () => {
     if (!foodName) return;
 
-    dispatch(addFoodToCustomer({ id, food: foodName }));
+    addFoodToCustomer({ id, food: foodName });
     setFoodName("");
   };
 
